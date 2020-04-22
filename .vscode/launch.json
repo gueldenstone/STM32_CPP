@@ -1,0 +1,20 @@
+{
+  "configurations": [
+    {
+      "showDevDebugOutput": true,
+      "cwd": "",
+      "executable": "./build/CMAKE_STM32.elf",
+      "name": "Debug STM32",
+      "request": "launch",
+      "type": "cortex-debug",
+      "servertype": "openocd",
+      "preLaunchTask": "CMake Build",
+      "device": "stlink",
+      "svdFile": "/CMSIS_SVD/data/STMicro/STM32.svd",
+      "configFiles": [
+        "interface/stlink-v2-1.cfg",
+        "target/stm32x.cfg"
+      ]
+    }
+  ]
+}

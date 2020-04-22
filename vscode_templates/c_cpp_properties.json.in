@@ -1,0 +1,18 @@
+{
+    "configurations": [
+        {
+            "name": "STM32",
+            "includePath": [
+                "@C_CPP_INCLUDES@"
+            ],
+            "defines": [
+                "@C_CPP_COMP_DEFS@"
+            ],
+            "compilerPath": ,
+            "compilerArgs":[],
+            "cStandard": "c11",
+            "cppStandard": "c++11"
+        }
+    ],
+    "version": 4
+}
