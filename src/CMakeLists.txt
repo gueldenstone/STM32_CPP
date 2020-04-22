@@ -1,6 +1,5 @@
 target_sources(${TARGET_NAME}
     PUBLIC
-        blink.c
-        main.c
+        main.cpp
         # syscalls.c
 )
