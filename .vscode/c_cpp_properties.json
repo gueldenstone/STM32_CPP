@@ -1,0 +1,21 @@
+{
+    "configurations": [
+        {
+            "name": "STM32",
+            "includePath": [
+                "/Users/lukas/Library/Mobile Documents/com~apple~CloudDocs/05_DEV/VSARM/projects/STM32_CPP/include",
+"/Users/lukas/Library/Mobile Documents/com~apple~CloudDocs/05_DEV/VSARM/projects/STM32_CPP/Drivers/CMSIS/include",
+"/Users/lukas/Library/Mobile Documents/com~apple~CloudDocs/05_DEV/VSARM/projects/STM32_CPP/Drivers/stmlibxx"
+            ],
+            "defines": [
+                "STM32F3",
+"STM32F303xE"
+            ],
+            "compilerPath": "/usr/local/bin/arm-none-eabi-g++",
+            "compilerArgs":[],
+            "cStandard": "c11",
+            "cppStandard": "c++11"
+        }
+    ],
+    "version": 4
+}

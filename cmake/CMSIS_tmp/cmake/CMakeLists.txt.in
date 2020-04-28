@@ -1,0 +1,32 @@
+cmake_minimum_required(VERSION 3.17)
+project(@PROJECT_NAME@
+    VERSION @PROJECT_VERSION@)
+
+set(STM32_CHIP "@STM32_CHIP@")
+set(STM32_FAMILY @STM32_FAMILY@)
+set(STM32_TYPE @STM32_TYPE@)
+set(STM32_SIZE_CODE @STM32_SIZE_CODE@)
+set(STM32_ARM_CORE @STM32_ARM_CORE@)
+
+add_library(${PROJECT_NAME})
+target_sources(${PROJECT_NAME}
+    PUBLIC
+        # Sources
+        ${CMAKE_CURRENT_LIST_DIR}/src/system_stm32@STM32_FAMILY_LOW@xx.c
+        ${CMAKE_CURRENT_LIST_DIR}/src/startup_@STM32_STARTUP@.s
+        # Header
+        ${CMAKE_CURRENT_LIST_DIR}/include/@STM32_ARM_CORE@.h
+        ${CMAKE_CURRENT_LIST_DIR}/include/stm32@STM32_FAMILY_LOW@xx.h
+        ${CMAKE_CURRENT_LIST_DIR}/include/system_stm32@STM32_FAMILY_LOW@xx.h
+        ${CMSIS_COMMON_HEADERS}
+)
+target_include_directories(${PROJECT_NAME}
+    PUBLIC
+        ${CMAKE_CURRENT_LIST_DIR}/include
+)
+get_target_property(COMPILE_DEFINITIONS ${TARGET_NAME} COMPILE_DEFINITIONS)
+target_compile_definitions(${PROJECT_NAME}
+    PUBLIC
+    ${COMPILE_DEFINITIONS}
+    ${STM32_COMPILE_DEFINITIONS}
+)

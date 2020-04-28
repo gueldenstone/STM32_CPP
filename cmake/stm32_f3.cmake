@@ -168,7 +168,6 @@ function(stm32_target_set_family_properties TARGET)
     set_target_properties(${TARGET} PROPERTIES
         STM32_RAM_SIZE ${RAM_SIZE}
         STM32_CCRAM_SIZE ${CCRAM_SIZE}
-        COMPILE_DEFINITIONS ${COMP_DEF}
     )
 
 endfunction()

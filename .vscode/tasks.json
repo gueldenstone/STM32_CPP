@@ -28,6 +28,36 @@
         "$gcc"
       ]
     },
+        {
+      "label": "CMake Build ELF",
+      "type": "shell",
+      "command": "cmake --build . --target STM32_CPP.elf",
+      "group": {
+        "kind": "build",
+        "isDefault": false
+      },
+      "options": {
+        "cwd": "/Users/lukas/Library/Mobile Documents/com~apple~CloudDocs/05_DEV/VSARM/projects/STM32_CPP/build"
+      },
+      "problemMatcher": [
+        "$gcc"
+      ]
+    },
+    {
+      "label": "CMake Build HEX",
+      "type": "shell",
+      "command": "cmake --build . --target STM32_CPP.hex",
+      "group": {
+        "kind": "build",
+        "isDefault": false
+      },
+      "options": {
+        "cwd": "/Users/lukas/Library/Mobile Documents/com~apple~CloudDocs/05_DEV/VSARM/projects/STM32_CPP/build"
+      },
+      "problemMatcher": [
+        "$gcc"
+      ]
+    },
     {
       "label": "Erase STM",
       "type": "process",
@@ -48,7 +78,7 @@
       "label": "Program STM",
       "type": "process",
       "dependsOn": [
-        "CMake Build",
+        "CMake Build HEX",
         "Erase STM"
       ],
       "dependsOrder": "sequence",
@@ -57,7 +87,7 @@
         "-c",
         "port=SWD",
         "-w",
-        "/Users/lukas/Library/Mobile Documents/com~apple~CloudDocs/05_DEV/VSARM/projects/STM32_CPP/build/STM32_CPP.elf"
+        "/Users/lukas/Library/Mobile Documents/com~apple~CloudDocs/05_DEV/VSARM/projects/STM32_CPP/build/STM32_CPP.hex"
       ],
       "options": {
         "cwd": "/Users/lukas/Library/Mobile Documents/com~apple~CloudDocs/05_DEV/VSARM/projects/STM32_CPP/build"

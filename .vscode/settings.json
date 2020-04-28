@@ -1,6 +1,8 @@
 {
-    "C_Cpp.default.configurationProvider": "vector-of-bool.cmake-tools",
     "files.associations": {
-        "stm32f3xx.h": "c"
-    }
+        "cstddef": "cpp",
+        "cstdint": "cpp",
+        "util.h": "c",
+        "cstdlib": "cpp"
+    },
 }

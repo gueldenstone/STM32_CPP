@@ -2,18 +2,18 @@
   "configurations": [
     {
       "showDevDebugOutput": true,
-      "cwd": "",
-      "executable": "./build/CMAKE_STM32.elf",
+      "cwd": "${workspaceRoot}",
+      "executable": "/Users/lukas/Library/Mobile Documents/com~apple~CloudDocs/05_DEV/VSARM/projects/STM32_CPP/Debug/build/STM32_CPP.elf",
       "name": "Debug STM32",
       "request": "launch",
       "type": "cortex-debug",
       "servertype": "openocd",
-      "preLaunchTask": "CMake Build",
+      "preLaunchTask": "CMake Build ELF",
       "device": "stlink",
-      "svdFile": "/CMSIS_SVD/data/STMicro/STM32.svd",
+      "svdFile": "/Users/lukas/Library/Mobile Documents/com~apple~CloudDocs/05_DEV/VSARM/projects/STM32_CPP/Debug/STM32F303.svd",
       "configFiles": [
         "interface/stlink-v2-1.cfg",
-        "target/stm32x.cfg"
+        "target/stm32f3x.cfg"
       ]
     }
   ]

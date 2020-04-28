@@ -13,31 +13,32 @@ define_property(TARGET PROPERTY STM32_MIN_STACK_SIZE INHERITED BRIEF_DOCS "Name 
 define_property(TARGET PROPERTY STM32_MIN_HEAP_SIZE INHERITED BRIEF_DOCS "Name of the Chip" FULL_DOCS "Name of the Chip")
 define_property(TARGET PROPERTY STM32_CCRAM_ORIGIN INHERITED BRIEF_DOCS "Name of the Chip" FULL_DOCS "Name of the Chip")
 define_property(TARGET PROPERTY STM32_ARM_CORE INHERITED BRIEF_DOCS "Name of the Chip" FULL_DOCS "Name of the Chip")
+define_property(TARGET PROPERTY STM32_STARTUP INHERITED BRIEF_DOCS "Name of the Chip" FULL_DOCS "Name of the Chip")
 
 # set System-Parameters
 set(CMAKE_SYSTEM_NAME Generic)
 set(CMAKE_SYSTEM_PROCESSOR arm)
 
 
-function(stm32_set_target_common_properties TARGET CHIP)
+macro(stm32_set_target_common_properties TARGET CHIP)
     set_target_properties(${TARGET} PROPERTIES
          STM32_CHIP ${CHIP_NAME}
-         OUTPUT_NAME "${CMAKE_PROJECT_NAME}.elf"
+         OUTPUT_NAME "${CMAKE_PROJECT_NAME}"
     )
     # set common flags
     target_compile_options(${TARGET}
         PUBLIC
         $<$<AND:$<COMPILE_LANGUAGE:C>,$<CONFIG:Debug>>:-Og -g>
-        $<$<AND:$<COMPILE_LANGUAGE:CXX>,$<CONFIG:Debug>>:-Og -g>
+        $<$<AND:$<COMPILE_LANGUAGE:CXX>,$<CONFIG:Debug>>:-Og -g -fno-exceptions -fno-rtti>
         $<$<AND:$<COMPILE_LANGUAGE:ASM>,$<CONFIG:Debug>>:-g>
         $<$<AND:$<COMPILE_LANGUAGE:C>,$<CONFIG:Release>>:-Os -flto>
-        $<$<AND:$<COMPILE_LANGUAGE:CXX>,$<CONFIG:Release>>:-Os -flto>
+        $<$<AND:$<COMPILE_LANGUAGE:CXX>,$<CONFIG:Release>>:-Os -flto -fno-exceptions -fno-rtti>
         $<$<AND:$<COMPILE_LANGUAGE:ASM>,$<CONFIG:Release>>: >
     )
     target_link_options(${TARGET}
         PUBLIC
-        $<$<CONFIG:Debug>:-specs=nano.specs -Xlinker -Map=output.map>
-        $<$<CONFIG:Release>:-specs=nano.specs -Xlinker -Map=output.map -s -flto>
+        $<$<CONFIG:Debug>:--specs=nano.specs -Xlinker -Map=output.map>
+        $<$<CONFIG:Release>:--specs=nano.specs -Xlinker -Map=output.map -s -flto>
     )
     
     if(USE_HAL_DRIVER)
@@ -59,13 +60,17 @@ function(stm32_set_target_common_properties TARGET CHIP)
     string(TOLOWER ${TYPE} TYPE_LOW)
     string(TOLOWER ${PIN_CODE} PIN_CODE_LOW)
     string(TOLOWER ${SIZE_CODE} SIZE_CODE_LOW)
+    string(TOLOWER ${COMP_DEF} COMP_DEF_LOW)
 
     # write the values to the target
     set_target_properties(${TARGET} PROPERTIES
         STM32_FAMILY ${FAMILY}
         STM32_TYPE ${TYPE}
         STM32_SIZE_CODE ${SIZE_CODE}
+        STM32_STARTUP ${COMP_DEF_LOW}
     )
+    target_compile_definitions(${TARGET} PUBLIC  "STM32${FAMILY}")
+    target_compile_definitions(${TARGET} PUBLIC ${COMP_DEF})
 
     # -------------------- select Family and set parameters -------------------- #
     if(FAMILY STREQUAL "F0")
@@ -166,9 +171,32 @@ function(stm32_set_target_common_properties TARGET CHIP)
     # set the linker stuff
     include(stm32_linker)
     stm32_set_linker_script(${TARGET})
-endfunction()
+endmacro()
 
 
+macro(STM32_add_hex_bin_elf_targets TARGET)
+    IF(EXECUTABLE_OUTPUT_PATH)
+      SET(FILENAME "${EXECUTABLE_OUTPUT_PATH}/${TARGET}")
+    ELSE()
+      SET(FILENAME "${TARGET}")
+    ENDIF()
+    add_custom_target(${TARGET}.hex DEPENDS ${TARGET} COMMAND ${CMAKE_OBJCOPY} -Oihex ${FILENAME} ${FILENAME}.hex)
+    ADD_CUSTOM_TARGET(${TARGET}.bin DEPENDS ${TARGET} COMMAND ${CMAKE_OBJCOPY} -Obinary ${FILENAME} ${FILENAME}.bin)
+    message(STATUS "FILENAME is " ${CMAKE_COMMAND})
+    ADD_CUSTOM_TARGET(${TARGET}.elf DEPENDS ${TARGET} COMMAND cp "${CMAKE_BINARY_DIR}/${FILENAME}" "${DEBUG_DIR}/build/${FILENAME}.elf")
+endmacro()
 
+macro(STM32_print_size_of_targets TARGET)
+    set(CMAKE_SIZE "/usr/local/Caskroom/gcc-arm-embedded/9-2019-q4-major/gcc-arm-none-eabi-9-2019-q4-major/bin/arm-none-eabi-size")
+    IF(EXECUTABLE_OUTPUT_PATH)
+      SET(FILENAME "${EXECUTABLE_OUTPUT_PATH}/${TARGET}")
+    ELSE()
+      SET(FILENAME "${TARGET}")
+    ENDIF()
+    add_custom_command(TARGET ${TARGET} POST_BUILD COMMAND ${CMAKE_SIZE} "-A" "-x" ${FILENAME})
+    add_custom_command(TARGET ${TARGET} POST_BUILD COMMAND ${CMAKE_SIZE} "-G" "-x" ${FILENAME})
+endmacro()
 
-
+macro(STM32_create_flash_task TARGET)
+endmacro()
+    
