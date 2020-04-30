@@ -1,7 +1,10 @@
-cmake_minimum_required(VERSION 3.17)
+cmake_minimum_required(VERSION 3.13)
 set(CMAKE_TRY_COMPILE_TARGET_TYPE STATIC_LIBRARY)
-# set(CMAKE_GENERATOR "Unix Makefiles" CACHE INTERNAL "Use Makefiles")
+# Local CMake Module Path
+set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} ${CMAKE_CURRENT_LIST_DIR}/cmake)
+# Configuration Includes
 include("${CMAKE_CURRENT_LIST_DIR}/project-meta-info.cmake")
+include(local_config)
 
 # Define a project for the current CMakeLists.txt.
 project(${project_name}
@@ -11,8 +14,7 @@ project(${project_name}
     LANGUAGES C CXX ASM )
 set(TARGET_NAME ${project_name} CACHE INTERNAL "the main targets name")
 
-# Local CMake Module Path
-set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} ${CMAKE_CURRENT_LIST_DIR}/cmake)
+
 
 # The main Executable
 add_executable(${TARGET_NAME})

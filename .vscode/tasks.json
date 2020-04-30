@@ -7,7 +7,7 @@
       "command": "cmake ..",
       "group": "none",
       "options": {
-        "cwd": "/Users/lukas/Library/Mobile Documents/com~apple~CloudDocs/05_DEV/VSARM/projects/STM32_CPP/build"
+        "cwd": "/home/pi/VSARM/projects/STM32_CPP/build"
       },
       "problemMatcher": [
         "$gcc"
@@ -22,7 +22,7 @@
         "isDefault": true
       },
       "options": {
-        "cwd": "/Users/lukas/Library/Mobile Documents/com~apple~CloudDocs/05_DEV/VSARM/projects/STM32_CPP/build"
+        "cwd": "/home/pi/VSARM/projects/STM32_CPP/build"
       },
       "problemMatcher": [
         "$gcc"
@@ -37,7 +37,7 @@
         "isDefault": false
       },
       "options": {
-        "cwd": "/Users/lukas/Library/Mobile Documents/com~apple~CloudDocs/05_DEV/VSARM/projects/STM32_CPP/build"
+        "cwd": "/home/pi/VSARM/projects/STM32_CPP/build"
       },
       "problemMatcher": [
         "$gcc"
@@ -52,7 +52,7 @@
         "isDefault": false
       },
       "options": {
-        "cwd": "/Users/lukas/Library/Mobile Documents/com~apple~CloudDocs/05_DEV/VSARM/projects/STM32_CPP/build"
+        "cwd": "/home/pi/VSARM/projects/STM32_CPP/build"
       },
       "problemMatcher": [
         "$gcc"
@@ -67,7 +67,7 @@
         "-e all"
       ],
       "options": {
-        "cwd": "/Users/lukas/Library/Mobile Documents/com~apple~CloudDocs/05_DEV/VSARM/projects/STM32_CPP/build"
+        "cwd": "/home/pi/VSARM/projects/STM32_CPP/build"
       },
       "group": "none",
       "problemMatcher": [
@@ -87,10 +87,10 @@
         "-c",
         "port=SWD",
         "-w",
-        "/Users/lukas/Library/Mobile Documents/com~apple~CloudDocs/05_DEV/VSARM/projects/STM32_CPP/build/STM32_CPP.hex"
+        "/home/pi/VSARM/projects/STM32_CPP/build/STM32_CPP.hex"
       ],
       "options": {
-        "cwd": "/Users/lukas/Library/Mobile Documents/com~apple~CloudDocs/05_DEV/VSARM/projects/STM32_CPP/build"
+        "cwd": "/home/pi/VSARM/projects/STM32_CPP/build"
       },
       "group": "none",
       "problemMatcher": [
@@ -107,7 +107,7 @@
         "-rst"
       ],
       "options": {
-        "cwd": "/Users/lukas/Library/Mobile Documents/com~apple~CloudDocs/05_DEV/VSARM/projects/STM32_CPP/build"
+        "cwd": "/home/pi/VSARM/projects/STM32_CPP/build"
       },
       "group": "none",
       "problemMatcher": [
@@ -128,7 +128,7 @@
         "-rst"
       ],
       "options": {
-        "cwd": "/Users/lukas/Library/Mobile Documents/com~apple~CloudDocs/05_DEV/VSARM/projects/STM32_CPP/build"
+        "cwd": "/home/pi/VSARM/projects/STM32_CPP/build"
       },
       "group": "build",
       "problemMatcher": [

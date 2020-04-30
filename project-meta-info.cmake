@@ -20,12 +20,6 @@
     set(CMAKE_BUILD_TYPE DEBUG)
 
 # The Drivers to use (coment/uncomment)
-    # Directory of the Drivers
-    set(STM32_CUBE_DIR "/Users/lukas/Drivers")
-    # set(STM32_CUBE_DIR ${CMAKE_CURRENT_LIST_DIR}/Drivers)
-    # "/usr/local/dev/STM32"
-
-
     # set(USE_HAL_DRIVER TRUE)
     # set(USE_LL_DRIVER TRUE)
     # set(UPDATE_HAL TRUE)

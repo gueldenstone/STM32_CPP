@@ -40,7 +40,7 @@ int main() {
   board_led = pGPIO_pin(&led_gpio, LED_PIN, pGPIO_OUT_PP);
   while (1) {
     board_led.toggle();
-    delay(250);
+    delay(125);
   }
 }
 extern "C" {
