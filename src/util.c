@@ -47,8 +47,8 @@ void setupClock(void) {
  * @brief Initialize Delay Timer with TIM7
  */
 void initDelay(void) {
-  RCC->APB1ENR |= RCC_APB1ENR_TIM7EN;        // enable Clock for TIM7
-  TIM7->PSC = (SystemCoreClock / 1000) - 1;  // prescaler for ARR in ms
+  RCC->APB1ENR |= RCC_APB1ENR_TIM7EN;         // enable Clock for TIM7
+  TIM7->PSC = (SystemCoreClock / 10000) - 1;  // prescaler for ARR in ms
   TIM7->ARR = 0;
   TIM7->CR1 |= TIM_CR1_OPM;    // Enable one-pulse Mode
   TIM7->DIER |= TIM_DIER_UIE;  // Enable Interrupt on Update
@@ -56,16 +56,20 @@ void initDelay(void) {
   NVIC_EnableIRQ(TIM7_IRQn);
 }
 /**
- * @brief delay function
- * @param 32-bit unsigend integer for delay in ms
+ * @brief: lala
+ *
+ * @note: lalala
+ *
+ * @param: param1, param 2
+ *
+ * @retval none
  */
 extern volatile int done;
-void delay(uint32_t ms) {
-  done = 0;
-  TIM7->ARR = ms;
-  TIM7->CR1 |= TIM_CR1_CEN;
-  while (!done) {
-    ;
-  }
-  TIM7->SR &= ~TIM_SR_UIF;  // UIF zurücksetzten
-}
+// void delay(uint32_t ms) {
+//   done = 0;
+//   TIM7->ARR = ms;
+//   TIM7->CR1 |= TIM_CR1_CEN;
+//   while (!done) {
+//     ;
+//   }
+// }

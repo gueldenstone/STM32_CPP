@@ -26,6 +26,7 @@
 
     set(USE_CMSIS TRUE)
     # set(UPDATE_CMSIS TRUE)
+    # set(CMSIS_OVERRIDE_COPY true)
 
 # some STM32 specific stuff with CMake
     set(HAVE_FLAG_SEARCH_PATHS_FIRST 0) # otherwise CMake will automatically set linker flags

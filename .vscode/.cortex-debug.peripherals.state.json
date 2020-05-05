@@ -1,1 +1,1 @@
-[{"node":"TIM7","expanded":true,"format":0},{"node":"TIM7.SR","expanded":true,"format":0}]
+[{"node":"SCB.VTOR","expanded":true,"format":0},{"node":"TIM7","expanded":true,"format":0},{"node":"TIM7.PSC","expanded":true,"format":2},{"node":"TIM7.ARR","expanded":true,"format":0},{"node":"TIM7.ARR.ARR","format":2}]

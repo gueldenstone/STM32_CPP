@@ -13,6 +13,7 @@ define_property(TARGET PROPERTY STM32_MIN_STACK_SIZE INHERITED BRIEF_DOCS "Name 
 define_property(TARGET PROPERTY STM32_MIN_HEAP_SIZE INHERITED BRIEF_DOCS "Name of the Chip" FULL_DOCS "Name of the Chip")
 define_property(TARGET PROPERTY STM32_CCRAM_ORIGIN INHERITED BRIEF_DOCS "Name of the Chip" FULL_DOCS "Name of the Chip")
 define_property(TARGET PROPERTY STM32_ARM_CORE INHERITED BRIEF_DOCS "Name of the Chip" FULL_DOCS "Name of the Chip")
+define_property(TARGET PROPERTY STM32_ARM_MPU INHERITED BRIEF_DOCS "Name of the Chip" FULL_DOCS "Name of the Chip")
 define_property(TARGET PROPERTY STM32_STARTUP INHERITED BRIEF_DOCS "Name of the Chip" FULL_DOCS "Name of the Chip")
 
 # set System-Parameters
@@ -75,54 +76,58 @@ macro(stm32_set_target_common_properties TARGET CHIP)
     # -------------------- select Family and set parameters -------------------- #
     if(FAMILY STREQUAL "F0")
         set(STM32_CORE "M0")
-        set(ARM_CORE "core_cm0")
+        set(ARM_CORE "cm0")
     elseif(FAMILY STREQUAL "F1")
         set(STM32_CORE "M3")
-        set(ARM_CORE "core_cm3")
+        set(ARM_CORE "cm3")
 
     elseif(FAMILY STREQUAL "F2")
         set(STM32_CORE "M3")
-        set(ARM_CORE "core_cm3")
+        set(ARM_CORE "cm3")
 
     elseif(FAMILY STREQUAL "F3")
         set(STM32_CORE "M4")
-        set(ARM_CORE "core_cm4")
+        set(ARM_CORE "cm4")
+        set(ARM_MPU "armv7")
 
     elseif(FAMILY STREQUAL "F4")
         set(STM32_CORE "M4")
-        set(ARM_CORE "core_cm4")
+        set(ARM_CORE "cm4")
+        set(ARM_MPU "armv7")
 
     elseif(FAMILY STREQUAL "F7")
         set(STM32_CORE "M7")
-        set(ARM_CORE "core_cm7")
+        set(ARM_CORE "cm7")
 
     elseif(FAMILY STREQUAL "G0")
         set(STM32_CORE "M0+")
-        set(ARM_CORE "core_cm0plus")
+        set(ARM_CORE "cm0plus")
 
     elseif(FAMILY STREQUAL "G4")
         set(STM32_CORE "M4")
-        set(ARM_CORE "core_cm4")
+        set(ARM_CORE "cm4")
+        set(ARM_MPU "armv7")
 
     elseif(FAMILY STREQUAL "H7")
         set(STM32_CORE "M7")
-        set(ARM_CORE "core_cm7")
+        set(ARM_CORE "cm7")
 
     elseif(FAMILY STREQUAL "L0")
         set(STM32_CORE "M0+")
-        set(ARM_CORE "core_cm0plus")
+        set(ARM_CORE "cm0plus")
 
     elseif(FAMILY STREQUAL "L1")
         set(STM32_CORE "M3")
-        set(ARM_CORE "core_cm3")
+        set(ARM_CORE "cm3")
 
     elseif(FAMILY STREQUAL "L4")
         set(STM32_CORE "M4")
-        set(ARM_CORE "core_cm4")
+        set(ARM_CORE "cm4")
+        set(ARM_MPU "armv7")
 
     elseif(FAMILY STREQUAL "L5")
         set(STM32_CORE "M33")
-        set(ARM_CORE "core_cm33")
+        set(ARM_CORE "cm33")
     endif()
     if(NOT ARM_CORE)
         message(FATAL_ERROR "Could not determine the ARM Core for ${CHIP}")
@@ -131,6 +136,7 @@ macro(stm32_set_target_common_properties TARGET CHIP)
         # write the values to the target
         set_target_properties(${TARGET} PROPERTIES
             STM32_ARM_CORE ${ARM_CORE}
+            STM32_ARM_MPU ${ARM_MPU}
         )
     endif()
 

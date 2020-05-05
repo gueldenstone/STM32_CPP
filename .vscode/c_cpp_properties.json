@@ -3,9 +3,9 @@
         {
             "name": "STM32",
             "includePath": [
-                "/home/pi/VSARM/projects/STM32_CPP/include",
-"/home/pi/VSARM/projects/STM32_CPP/Drivers/CMSIS/include",
-"/home/pi/VSARM/projects/STM32_CPP/Drivers/stmlibxx"
+                "/Users/lukas/Library/Mobile Documents/com~apple~CloudDocs/05_DEV/VSARM/projects/STM32_CPP/include",
+"/Users/lukas/Library/Mobile Documents/com~apple~CloudDocs/05_DEV/VSARM/projects/STM32_CPP/Drivers/CMSIS/include",
+"/Users/lukas/Library/Mobile Documents/com~apple~CloudDocs/05_DEV/VSARM/projects/STM32_CPP/Drivers/stmlibxx/include"
             ],
             "defines": [
                 "STM32F3",

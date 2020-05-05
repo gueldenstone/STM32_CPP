@@ -4,7 +4,7 @@ function(stm32_target_set_family_properties TARGET)
         PUBLIC
         $<$<COMPILE_LANGUAGE:C>:-mthumb -fno-builtin -mcpu=cortex-m4 -mfpu=fpv4-sp-d16 -mfloat-abi=hard -Wall -ffunction-sections -fdata-sections -fomit-frame-pointer -mabi=aapcs -fno-unroll-loops -ffast-math -ftree-vectorize>
         $<$<COMPILE_LANGUAGE:CXX>:-mthumb -fno-builtin -mcpu=cortex-m4 -mfpu=fpv4-sp-d16 -mfloat-abi=hard -Wall -std=c++11 -ffunction-sections -fdata-sections -fomit-frame-pointer -mabi=aapcs -fno-unroll-loops -ffast-math -ftree-vectorize>
-        $<$<COMPILE_LANGUAGE:ASM>:-mthumb -mcpu=cortex-m4 -mfloat-abi=hard -mfpu=fpv4-sp-d16 -g -Wa,--no-warn -x assembler-with-cpp>
+        $<$<COMPILE_LANGUAGE:ASM>:-mthumb -mcpu=cortex-m4 -mfloat-abi=hard -mfpu=fpv4-sp-d16 -g -Wa,--no-warn, -x assembler-with-cpp>
     )
 
     target_link_options(${TARGET}

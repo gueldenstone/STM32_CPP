@@ -10,7 +10,7 @@ if(NOT TARGET_NAME)
     message(STATUS "No Target defined in Parent Project, switching to default STM32F303CC")
     set(STM32_CHIP "STMF303CC")
     set(STM32_FAMILY "F3")
-    set(STM32_TYPE "304xx")
+    set(STM32_TYPE "303xx")
     set(STM32_SIZE_CODE "C")
     set(STM32_ARM_CORE "core_cm4")
     set(USE_CMSIS TRUE)
@@ -24,6 +24,7 @@ else()
     get_target_property(STM32_TYPE ${TARGET_NAME} STM32_TYPE)
     get_target_property(STM32_SIZE_CODE ${TARGET_NAME} STM32_SIZE_CODE)
     get_target_property(STM32_ARM_CORE ${TARGET_NAME} STM32_ARM_CORE)
+    get_target_property(STM32_ARM_MPU ${TARGET_NAME} STM32_ARM_MPU)
     get_target_property(STM32_COMPILE_DEFINITIONS ${TARGET_NAME} COMPILE_DEFINITIONS)
     get_target_property(STM32_STARTUP ${TARGET_NAME} STM32_STARTUP)
 endif()
@@ -100,16 +101,19 @@ set(CMSIS_COMMON_HEADERS
     cmsis_gcc.h
     cmsis_version.h
     cmsis_compiler.h
-    mpu_armv7.h
-    # arm_common_tables.h
-    # arm_const_structs.h
-    # arm_math.h
-    # core_cmFunc.s
-    # core_cmInstr.h
-    # core_cmSimd.h
+    core_${STM32_ARM_CORE}.h
+    mpu_${STM32_ARM_MPU}.h
 )
 
-list(TRANSFORM CMSIS_COMMON_HEADERS PREPEND "${cmsis_core_SOURCE_DIR}/Core/Include/" OUTPUT_VARIABLE CMSIS_COMMON_HEADERS_T)
+set(CMSIS_DEVICE_HEADERS
+    system_stm32${STM32_FAMILY_LOW}xx.h
+    stm32${STM32_FAMILY_LOW}xx.h
+    stm32f${TYPE}x${STM32_SIZE_CODE_LOW}.h
+)
+
+list(TRANSFORM CMSIS_COMMON_HEADERS PREPEND "${cmsis_core_SOURCE_DIR}/Core/Include/" OUTPUT_VARIABLE CMSIS_COMMON_HEADERS_P)
+list(TRANSFORM CMSIS_DEVICE_HEADERS PREPEND "${cmsis_device_SOURCE_DIR}/Include/" OUTPUT_VARIABLE CMSIS_DEVICE_HEADERS_P)
+if(CMSIS_OVERRIDE_COPY)
 file(COPY 
         # Sources
         ${cmsis_device_SOURCE_DIR}/Source/Templates/system_stm32${STM32_FAMILY_LOW}xx.c
@@ -120,9 +124,11 @@ file(COPY
 
 file(COPY
         # Header
-        ${cmsis_core_SOURCE_DIR}/Core/Include/
-        ${cmsis_device_SOURCE_DIR}/Include/
+        ${CMSIS_COMMON_HEADERS_P}
+        ${CMSIS_DEVICE_HEADERS_P}
     DESTINATION
         ${CMAKE_SOURCE_DIR}/Drivers/CMSIS/include 
 )
+set(CMSIS_OVERRIDE_COPY false)
+endif()
 configure_file(${CMAKE_CURRENT_LIST_DIR}/cmake/CMakeLists.txt.in ${CMAKE_SOURCE_DIR}/Drivers/CMSIS/CMakeLists.txt @ONLY)

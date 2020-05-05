@@ -3,15 +3,15 @@ project(stmlibxx
     VERSION 1.0.0
     LANGUAGES CXX C ASM
 )
-add_library(${PROJECT_NAME})
+add_library(${PROJECT_NAME} INTERFACE)
 target_sources(${PROJECT_NAME}
-    PUBLIC
+    INTERFACE
         io.cpp
         gpio.cpp
-        # libraryhacks.cpp
+        timer.cpp
+        stm32f303xe_it.cpp
+        startup.cpp
 )
-target_include_directories(${PROJECT_NAME}
-    PUBLIC
-    ${CMAKE_CURRENT_LIST_DIR}
+target_include_directories(${PROJECT_NAME} INTERFACE
+    ${CMAKE_CURRENT_LIST_DIR}/include
 )
-target_link_libraries(${PROJECT_NAME} CMSIS) 

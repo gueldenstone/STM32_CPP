@@ -11,9 +11,13 @@
 /* -------------------------------- includes -------------------------------- */
 #include "main.hpp"
 
-#include <cstddef>
+// #include <cstddef>
+#include <cstdio>
+#include <cstdlib>
 
 #include "gpio.hpp"
+#include "stm32f303xe_it.hpp"
+#include "timer.hpp"
 #include "util.h"
 /* -------------------------------------------------------------------------- */
 
@@ -21,17 +25,21 @@
 #define LED_BANK (GPIOA)
 #define LED_PIN (5)
 #define DEBUG 1
+// #define VECT_TAB_SRAM
 /* -------------------------------------------------------------------------- */
 
 /* --------------------------- peripheral structs --------------------------- */
 pGPIO led_gpio;
 pGPIO_pin board_led;
+// TimerInterrupt timer7interrupt;
+Timer timer7;
 /* -------------------------------------------------------------------------- */
 
 volatile int done = 0;
 /* -------------------------------- functions ------------------------------- */
+
 int main() {
-  // setupClock();
+  setupClock();
   initDelay();
   // initialize the LED pin's GPIO bank
   led_gpio = pGPIO(LED_BANK);
@@ -40,11 +48,21 @@ int main() {
   board_led = pGPIO_pin(&led_gpio, LED_PIN, pGPIO_OUT_PP);
   while (1) {
     board_led.toggle();
-    delay(125);
+    delay(250);
+  }
+}
+
+void delay(uint32_t ms) {
+  done = 0;
+  TIM7->ARR = ms * 10;
+  TIM7->CR1 |= TIM_CR1_CEN;
+  while (!done) {
+    ;
   }
 }
 extern "C" {
 void TIM7_IRQHandler(void) {
+  extern volatile int done;
   done = 1;
   TIM7->SR &= ~TIM_SR_UIF;
 }
